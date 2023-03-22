@@ -1,0 +1,27 @@
+<integer, 12>
+<integer, -523>
+<integer, +4250>
+<float, 0.255>
+<float, 12.46>
+<float, -15.0>
+<float, +3.1415>
+<float, -55.23e5>
+<float, +123.12e-3>
+<float, -34.444e+5>
+<identifier, noor>
+<identifier, noor01>
+<identifier, function>
+<keyword, if>
+<keyword, switch>
+<keyword, case>
+<keyword, break>
+<keyword, while>
+<telephone, 054-878-0246>
+<telephone, 03-235-1222>
+<telephone, +972-52-211-3467>
+<telephone, +972-3-235-1222>
+<email, noor@gmail.com>
+<email, noor@live.co.il>
+<email, n@n.n>
+<address, 246 Herzelstr, Tel-aviv, Israel, Israel>
+<address, 2120 Washington Blvd., Washington, Pennsylvania, USA>

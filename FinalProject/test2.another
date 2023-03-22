@@ -1,0 +1,16 @@
+begin
+
+int x, y, z;
+x = 5;
+y=x/5;
+z=y*3/x;
+print x,y-2,z*3;
+
+arr a, b, c;
+a = 5;
+a:10 = -13;
+c=[0, 3, 9, 111];
+b = [4, 6];
+print a+b+c, a, b, c;
+
+end

@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- saved from url=(0112)https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/ie_prog_4lex_yacc.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+
+<title>Example Program for the lex and yacc Programs
+</title>
+</head>
+
+<body bgcolor="#fcfbf0">
+<center>
+[  <a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/using_lexprg_yaccprg.htm">Previous</a>  |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/logical_vol_prg.htm">Next</a>  |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/toc.htm" target="_parent">Contents</a> |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixuser/glossary/toc.htm" target="_parent">Glossary</a> |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixgen/topnav/topnav.htm" target="_top">Home</a> |
+<a href="https://sites.ualberta.ca/cgi-bin/ds_form?config=/usr/share/man/info/en_US/a_doc_lib/data/base.cfg" target="_top">Search</a> ]
+<hr>
+<font color="#a62a2a" size="+2">
+<i>AIX Version 4.3 General Programming Concepts: Writing and Debugging Programs</i></font>
+</center>
+<hr size="3" noshade="">
+<h2><a name="QJ11e0gaco"></a>Example Program for the lex and yacc Programs</h2>
+<p><a name="A240658E616soni"></a>This section describes example programs for the <b>lex</b> and <b>yacc</b> commands. Together, these example programs create a simple, desk-calculator program that performs addition, subtraction, multiplication, and division operations. This calculator program also allows you to assign values to variables (each designated by a single, lowercase letter) and then use the variables in calculations. The files that contain the example <b>lex</b> and <b>yacc</b> programs are:</p>
+
+<table><tbody><tr valign="TOP" align="LEFT"><th nowrap="NOWRAP">File</th>
+<th>  Content</th></tr>
+
+<tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F071a"></a><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/ie_prog_4lex_yacc.htm#A26F074b"><b>calc.lex</b></a>
+</td>
+<td>  Specifies the <b>lex</b> command specification file that defines the lexical analysis rules.</td></tr>
+
+<tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F071b"></a><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/ie_prog_4lex_yacc.htm#A26F0736"><b>calc.yacc</b></a>
+</td>
+<td>  Specifies the <b>yacc</b> command grammar file that defines the parsing rules, and calls the <b>yylex</b> subroutine created by the <b>lex</b> command to provide input.</td></tr></tbody></table>
+
+<p><a name="A240658E857soni"></a>The following descriptions assume that the <b>calc.lex</b> and <b>calc.yacc</b> example programs are found in your current directory.</p>
+
+<h3><a name="A26F071d"></a>Compiling the Example Program</h3>
+<p><a name="A240658E986soni"></a>Perform the following steps, in order, to create the desk calculator example program:</p>
+
+<ol><li><a name="A26F071f"></a>Process the <b>yacc</b> grammar file using the <b>-d</b> optional flag (which tells the <b>yacc</b> command to create a file that defines the tokens used in addition to the C language source code):
+
+<pre><a name="A26F0720"></a>yacc -d calc.yacc</pre></li>
+
+<li><a name="A26F0721"></a>Use the <b>li</b> command to verify that the following files were created:
+
+
+<table><tbody><tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F0722"></a><b>y.tab.c</b></td>
+<td>  The C language source file that the <b>yacc</b> command created for the parser.</td></tr>
+
+<tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F0723"></a><b>y.tab.h</b></td>
+<td>  A header file containing define statements for the tokens used by the parser.</td></tr></tbody></table></li>
+
+<li><a name="A26F0724"></a>Process the <b>lex</b> specification file:
+
+<pre><a name="A26F0725"></a>lex calc.lex</pre></li>
+
+<li><a name="A26F0726"></a>Use the <b>li</b> command to verify that the following file was created:
+
+
+<table><tbody><tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F0727"></a><b>lex.yy.c</b></td>
+<td>  The C language source file that the <b>lex</b> command created for the lexical analyzer.</td></tr></tbody></table></li>
+
+<li><a name="A26F0728"></a>Compile and link the two C language source files:
+
+<pre><a name="A26F0729"></a>cc y.tab.c lex.yy.c</pre></li>
+
+<li><a name="A26F072a"></a>Use the <b>li</b> command to verify that the following files were created:
+
+
+<table><tbody><tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F072b"></a><b>y.tab.o</b></td>
+<td>   The object file for the <b>y.tab.c</b> source file</td></tr>
+
+<tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F072c"></a><b>lex.yy.o</b></td>
+<td>   The object file for the <b>lex.yy.c</b> source file</td></tr>
+
+<tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F072d"></a><b>a.out</b></td>
+<td>   The executable program file</td></tr></tbody></table>
+
+To then run the program directly from the <b>a.out</b> file, enter:
+
+<pre><a name="A26F072f"></a>$ a.out</pre>
+
+Or, to move the program to a file with a more descriptive name, as in the following example, and run it, enter:
+
+<pre><a name="A26F0731"></a>$ mv a.out calculate
+$ calculate</pre>
+
+In either case, after you start the program, the cursor moves to the line below the <samp>$</samp> (command prompt). Then enter numbers and operators in calculator fashion. When you press the Enter key, the program displays the result of the operation. After you assign a value to a variable:
+
+<pre><a name="A26F0733"></a>m=4 &lt;enter&gt;
+_</pre>
+
+the cursor moves to the next line. When you use the variable in subsequent calculations, it will have the assigned value:
+
+<pre><a name="A26F0735"></a>m+5 &lt;enter&gt;
+9
+_</pre></li></ol>
+
+<h4><a name="A26F0736"></a>Parser Source Code</h4>
+
+
+<p><a name="A2406590467soni"></a>The following example shows the contents of the <b>calc.yacc</b> file. This file has entries in all three sections of a <b>yacc</b> grammar file: declarations, rules, and programs.</p>
+<pre><a name="A26F0738"></a>%{
+#include &lt;stdio.h&gt;</pre>
+<pre><a name="D722D5B441mela"></a>int regs[26];
+int base;</pre>
+<pre><a name="D722D5B480mela"></a>%}</pre>
+<pre><a name="D722D5B520mela"></a>%start list</pre>
+<pre><a name="D722D5B563mela"></a>%token DIGIT LETTER</pre>
+<pre><a name="D722D5B610mela"></a>%left '|'
+%left '&amp;'
+%left '+' '-'
+%left '*' '/' '%'
+%left UMINUS  /*supplies precedence for unary minus */</pre>
+<pre><a name="D722D5B656mela"></a>%%                   /* beginning of rules section */</pre>
+<pre><a name="D722D5B703mela"></a>list:                       /*empty */
+         |
+        list stat&nbsp;'\n'
+         |
+        list error&nbsp;'\n'
+         {
+           yyerrok;
+         }
+         ;</pre>
+<pre><a name="A26F0739"></a>stat:    expr
+         {
+           printf("%d\n",$1);
+         }
+         |
+         LETTER '=' expr
+         {
+           regs[$1] = $3;
+         }</pre>
+<pre><a name="D722D5B777mela"></a>         ;
+</pre>
+
+<p>  </p>
+<pre><a name="D722D5B825mela"></a>expr:    '(' expr ')'
+&nbsp;&nbsp;       {
+           $$ = $2;
+         }
+         |
+         expr '*' expr
+         {
+           $$ = $1 * $3;
+         }
+         |
+         expr '/' expr
+         {
+           $$ = $1 / $3;
+         }
+         |
+         expr '%' expr
+         {
+           $$ = $1 % $3;
+         }
+         |
+         expr '+' expr
+         {
+           $$ = $1 + $3;
+         }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</pre>
+<pre><a name="A26F073a"></a>         expr '-' expr
+         {
+           $$ = $1 - $3;
+         }
+         |
+         expr '&amp;' expr
+         {
+           $$ = $1 &amp; $3;
+         }
+         |
+         expr '|' expr
+         {
+           $$ = $1 | $3;
+         }
+         |</pre>
+<pre><a name="A26F073b"></a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '-' expr %prec UMINUS
+    &nbsp;    {
+           $$ = -$2;
+         }
+         |
+         LETTER
+         {
+           $$ = regs[$1];
+         }</pre>
+<pre><a name="D722D5B940mela"></a>         |
+         number
+         ;
+</pre>
+
+<p>  </p>
+<pre><a name="D722D5B986mela"></a>number:  DIGIT
+         {
+           $$ = $1;
+           base = ($1==0) ? 8&nbsp;:&nbsp;10;
+         }       |
+         number DIGIT
+         {
+           $$ = base * $1 + $2;
+         }
+         ;
+</pre>
+
+<p>  </p>
+<pre><a name="D722D5C031mela"></a>%%
+main()
+{
+ return(yyparse());
+}</pre>
+<pre><a name="D722D5C077mela"></a>yyerror(s)
+char *s;
+{
+  fprintf(stderr,&nbsp;"%s\n",s);
+}</pre>
+<pre><a name="D722D5C120mela"></a>yywrap()
+{
+  return(1);
+}</pre>
+
+<h5><a name="A26F073d"></a>Declarations Section</h5>
+<p><a name="A2406591587soni"></a>This section contains entries that:</p>
+
+<ul><li><a name="A26F073f"></a>Include standard I/O header file.</li>
+
+<li><a name="A26F0740"></a>Define global variables.</li>
+
+<li><a name="A26F0741"></a>Define the <samp>list</samp> rule as the place to start processing.</li>
+
+<li><a name="A26F0742"></a>Define the tokens used by the parser.</li>
+
+<li><a name="A26F0743"></a>Define the operators and their precedence.</li></ul>
+
+
+<h5><a name="A26F0744"></a>Rules Section</h5>
+<p><a name="A2406591991soni"></a>The rules section defines the rules that parse the input stream.</p>
+
+<h5><a name="A26F0746"></a>Programs Section</h5>
+<p><a name="A2406592119soni"></a>The programs section contains the following subroutines. Because these subroutines are included in this file, you do not need to use the <b>yacc</b> library when processing this file.</p>
+
+<table><tbody><tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F0748"></a><b>main</b></td>
+<td>  The required main program that calls the <b>yyparse</b> subroutine to start the program.</td></tr>
+
+<tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F0749"></a><b>yyerror(s)</b></td>
+<td>  This error-handling subroutine only prints a syntax error message.</td></tr>
+
+<tr valign="TOP"><td nowrap="NOWRAP"><a name="A26F074a"></a><b>yywrap</b></td>
+<td>  The wrap-up subroutine that returns a value of 1 when the end of input occurs.</td></tr></tbody></table>
+
+<h4><a name="A26F074b"></a>Lexical Analyzer Source Code</h4>
+
+
+<p><a name="A2406592445soni"></a>Following are the contents of the <b>calc.lex</b> file. This file contains include statements for standard input and output, as well as for the <b>y.tab.h</b> file. The <b>yacc</b> program generates that file from the <b>yacc</b> grammar file information if you use the <b>-d</b> flag with the <b>yacc</b> command. The <b>y.tab.h</b> file contains definitions for the tokens that the parser program uses. In addition, <b>calc.lex</b> contains the rules to generate these tokens from the input stream.</p>
+<pre><a name="A26F074d"></a>%{
+ 
+#include &lt;stdio.h&gt;
+#include "y.tab.h"
+int c;
+extern int yylval;
+%}
+%%
+" "       ;
+[a-z]     {
+            c = yytext[0];
+            yylval = c - 'a';
+            return(LETTER);
+          }
+[0-9]     {
+            c = yytext[0];
+            yylval = c - '0';
+            return(DIGIT);
+          }
+[^a-z0-9\b]    {
+                 c = yytext[0];
+                 return(c);
+               }</pre>
+
+
+
+<a name="A26F074e"></a><h3>Related Information</h3>
+
+
+
+
+<a name="A2406592695soni"></a><p><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/tools_utils.htm#reS100prio">Tools and Utilities Overview for Programmers</a></p>
+
+
+
+
+<a name="A2406592767soni"></a><p><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/create_input_lang_lex_yacc.htm#A282962f">Creating an Input Language with the lex and yacc Commands</a></p>
+
+
+
+
+<a name="A2406592840soni"></a><p><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/using_lexprg_yaccprg.htm#BDk11b0gaco">Using the lex Program with the yacc Program</a></p>
+
+
+
+
+<a name="A2406592911soni"></a><p><!--:cmds:aixcmds2:--><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/cmds/aixcmds2/ed.htm#A133Z9c66"><b>ed</b></a> command, <!--:cmds:aixcmds3:--><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/cmds/aixcmds3/lex.htm#A1079cb"><b>lex</b></a> command, <!--:cmds:aixcmds5:--><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/cmds/aixcmds5/sed.htm#A10793b"><b>sed</b></a> command, <!--:cmds:aixcmds6:--><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/cmds/aixcmds6/yacc.htm#A10499a4"><b>yacc</b></a> command</p>
+
+
+
+
+<a name="A2406592978soni"></a><p><!--:libs:basetrf1:--><a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/libs/basetrf1/printf.htm#A8ZEd0gaco"><b>printf</b></a> subroutine</p>
+
+<hr><center>
+[  <a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/using_lexprg_yaccprg.htm">Previous</a>  |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/logical_vol_prg.htm">Next</a>  |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixprggd/genprogc/toc.htm" target="_parent">Contents</a> |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixuser/glossary/toc.htm" target="_parent">Glossary</a>  |
+<a href="https://sites.ualberta.ca/dept/chemeng/AIX-43/share/man/info/C/a_doc_lib/aixgen/topnav/topnav.htm" target="_top">Home</a> |
+<a href="https://sites.ualberta.ca/cgi-bin/ds_form?config=/usr/share/man/info/en_US/a_doc_lib/data/base.cfg" target="_top">Search</a> ]
+</center>
+
+
+
+
+</body></html>
